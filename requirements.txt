@@ -1,0 +1,11 @@
+Flask
+Flask-Login
+Flask-SQLAlchemy
+numpy
+pandas
+scikit-learn
+joblib
+Pillow
+opencv-python-headless
+pytesseract
+gunicorn

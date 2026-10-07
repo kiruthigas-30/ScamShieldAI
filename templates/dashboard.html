@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ScamShieldAI - Dashboard</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+<div class="dashboard">
+
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🛡️ ScamShield<span>AI</span>
+        </div>
+
+
+        <div class="nav-user">
+
+            <span class="user-name">
+                Welcome, {{ current_user.username }}
+            </span>
+
+            <a
+                href="{{ url_for('logout') }}"
+                class="logout-link"
+            >
+
+                <button
+                    type="button"
+                    class="logout-btn"
+                >
+                    Logout
+                </button>
+
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="dashboard-content">
+
+
+        <!-- =================================================
+             WELCOME
+        ================================================== -->
+
+        <section class="welcome-section">
+
+            <h1>
+                Protect Yourself From Online Scams
+            </h1>
+
+            <p>
+                Choose a security tool below to analyze
+                suspicious content.
+            </p>
+
+        </section>
+
+
+        <!-- =================================================
+             SCANNER GRID
+        ================================================== -->
+
+        <section class="scanner-grid">
+
+
+            <!-- =================================================
+                 URL SCANNER
+            ================================================== -->
+
+            <div class="scanner-card">
+
+                <div class="scanner-icon">
+                    🔗
+                </div>
+
+                <h3>
+                    URL Scanner
+                </h3>
+
+                <p>
+                    Check suspicious links using
+                    machine learning-based detection.
+                </p>
+
+
+                <form
+                    method="POST"
+                    action="{{ url_for('check_link') }}"
+                >
+
+                    <input
+                        type="text"
+                        name="url"
+                        placeholder="Enter suspicious URL"
+                        required
+                        autocomplete="off"
+                        class="url-input"
+                    >
+
+
+                    <button
+                        type="submit"
+                        class="analyze-btn"
+                    >
+                        🔍 Analyze URL
+                    </button>
+
+                </form>
+
+
+                <span class="scanner-label">
+                    ML Detection
+                </span>
+
+            </div>
+
+
+            <!-- =================================================
+                 SCREENSHOT SCANNER
+            ================================================== -->
+
+            <div class="scanner-card">
+
+                <div class="scanner-icon">
+                    📷
+                </div>
+
+                <h3>
+                    Screenshot Scanner
+                </h3>
+
+                <p>
+                    Upload a chat, message or QR-code
+                    screenshot for OCR and AI analysis.
+                </p>
+
+
+                <form
+                    method="POST"
+                    action="{{ url_for('scan_screenshot') }}"
+                    enctype="multipart/form-data"
+                >
+
+                    <input
+                        type="file"
+                        name="screenshot"
+                        accept=".png,.jpg,.jpeg"
+                        required
+                        class="screenshot-input"
+                    >
+
+
+                    <button
+                        type="submit"
+                        class="analyze-btn"
+                    >
+                        📷 Scan Screenshot
+                    </button>
+
+                </form>
+
+
+                <span class="scanner-label">
+                    OCR + QR + NLP
+                </span>
+
+            </div>
+
+
+            <!-- =================================================
+                 SELLER CHECKER
+            ================================================== -->
+
+            <div class="scanner-card">
+
+                <div class="scanner-icon">
+                    🏪
+                </div>
+
+                <h3>
+                    Seller Checker
+                </h3>
+
+                <p>
+                    Check online sellers and identify
+                    suspicious seller behaviour.
+                </p>
+
+
+                <form
+                    method="POST"
+                    action="{{ url_for('check_seller') }}"
+                >
+
+                    <input
+                        type="text"
+                        name="seller_name"
+                        placeholder="Seller name"
+                        required
+                        autocomplete="off"
+                    >
+
+
+                    <input
+                        type="text"
+                        name="seller_url"
+                        placeholder="Seller website / URL"
+                        autocomplete="off"
+                    >
+
+
+                    <input
+                        type="text"
+                        name="phone"
+                        placeholder="Phone number (optional)"
+                        autocomplete="off"
+                    >
+
+
+                    <button
+                        type="submit"
+                        class="analyze-btn"
+                    >
+                        🏪 Check Seller
+                    </button>
+
+                </form>
+
+
+                <span class="scanner-label">
+                    Risk Analysis
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             URL ANALYSIS
+        ================================================== -->
+
+        {% if url_scan %}
+
+        <section class="risk-card analysis-card">
+
+            <h2>
+                🔗 URL Analysis
+            </h2>
+
+
+            <div class="risk-score">
+
+                <span class="risk-number">
+                    {{ url_scan.risk_score }}
+                </span>
+
+                <span class="risk-total">
+                    / 100
+                </span>
+
+            </div>
+
+
+            {% if url_scan.risk_score >= 70 %}
+
+                <div class="risk-status danger">
+                    {{ url_scan.result }}
+                </div>
+
+            {% elif url_scan.risk_score >= 40 %}
+
+                <div class="risk-status warning">
+                    {{ url_scan.result }}
+                </div>
+
+            {% else %}
+
+                <div class="risk-status safe">
+                    {{ url_scan.result }}
+                </div>
+
+            {% endif %}
+
+
+            <p class="probability-text">
+
+                Phishing Probability:
+
+                <strong>
+                    {{ (url_scan.probability * 100)|round|int }}%
+                </strong>
+
+            </p>
+
+
+            <p class="scanned-url">
+
+                Scanned URL:
+
+                <strong>
+                    {{ url_scan.url }}
+                </strong>
+
+            </p>
+
+
+            <!-- =================================================
+                 URL EXPLANATION
+            ================================================== -->
+
+            {% if url_scan.reason %}
+
+            <div class="url-explanation">
+
+                <h4>
+                    🔍 Why this result?
+                </h4>
+
+                <p>
+                    {{ url_scan.reason }}
+                </p>
+
+
+                <h4>
+                    🧠 Risk Explanation
+                </h4>
+
+                <p>
+                    {{ url_scan.risk_explanation }}
+                </p>
+
+
+                {% if url_scan.details %}
+
+                <div class="url-reasons">
+
+                    {% for detail in url_scan.details %}
+
+                    <p>
+                        • {{ detail }}
+                    </p>
+
+                    {% endfor %}
+
+                </div>
+
+                {% endif %}
+
+
+                <h4>
+                    🛡️ Safety Advice
+                </h4>
+
+                <p>
+                    {{ url_scan.safety_advice }}
+                </p>
+
+            </div>
+
+            {% endif %}
+
+        </section>
+
+        {% endif %}
+
+
+        <!-- =================================================
+             SCREENSHOT / QR ANALYSIS
+        ================================================== -->
+
+        {% if screenshot_scan %}
+
+        <section class="risk-card analysis-card">
+
+
+            {% if screenshot_scan.type == "QR" %}
+
+            <h2>
+                🔳 QR Analysis
+            </h2>
+
+            {% else %}
+
+            <h2>
+                📷 Screenshot Analysis
+            </h2>
+
+            {% endif %}
+
+
+            <div class="risk-score">
+
+                <span class="risk-number">
+                    {{ screenshot_scan.risk_score }}
+                </span>
+
+                <span class="risk-total">
+                    / 100
+                </span>
+
+            </div>
+
+
+            {% if screenshot_scan.risk_score >= 70 %}
+
+                <div class="risk-status danger">
+                    {{ screenshot_scan.result }}
+                </div>
+
+            {% elif screenshot_scan.risk_score >= 40 %}
+
+                <div class="risk-status warning">
+                    {{ screenshot_scan.result }}
+                </div>
+
+            {% else %}
+
+                <div class="risk-status safe">
+                    {{ screenshot_scan.result }}
+                </div>
+
+            {% endif %}
+
+
+            {% if screenshot_scan.probability is defined
+                  and screenshot_scan.probability is not none %}
+
+            <p class="probability-text">
+
+                Detection Probability:
+
+                <strong>
+                    {{ (screenshot_scan.probability * 100)|round|int }}%
+                </strong>
+
+            </p>
+
+            {% endif %}
+
+
+            <!-- =================================================
+                 SCREENSHOT EXPLANATION
+            ================================================== -->
+
+            {% if screenshot_scan.reason %}
+
+            <div class="url-explanation">
+
+                <h4>
+                    🔍 Why this result?
+                </h4>
+
+                <p>
+                    {{ screenshot_scan.reason }}
+                </p>
+
+
+                <h4>
+                    🧠 Risk Explanation
+                </h4>
+
+                <p>
+                    {{ screenshot_scan.risk_explanation }}
+                </p>
+
+
+                {% if screenshot_scan.details %}
+
+                <div class="url-reasons">
+
+                    {% for detail in screenshot_scan.details %}
+
+                    <p>
+                        • {{ detail }}
+                    </p>
+
+                    {% endfor %}
+
+                </div>
+
+                {% endif %}
+
+
+                <h4>
+                    🛡️ Safety Advice
+                </h4>
+
+                <p>
+                    {{ screenshot_scan.safety_advice }}
+                </p>
+
+            </div>
+
+            {% endif %}
+
+
+            <!-- =================================================
+                 OCR TEXT
+            ================================================== -->
+
+            {% if screenshot_scan.ocr_text %}
+
+            <div class="ocr-result-box">
+
+                <strong>
+                    📝 Extracted Text
+                </strong>
+
+                <br><br>
+
+                {{ screenshot_scan.ocr_text }}
+
+            </div>
+
+            {% endif %}
+
+
+            <!-- =================================================
+                 QR CONTENT
+            ================================================== -->
+
+            {% if screenshot_scan.qr_text %}
+
+            <div class="qr-result-box">
+
+                <strong>
+                    🔳 Decoded QR Content
+                </strong>
+
+                <br><br>
+
+                {{ screenshot_scan.qr_text }}
+
+            </div>
+
+            {% endif %}
+
+
+            {% if screenshot_scan.url %}
+
+            <p class="scanned-url">
+
+                🔗 QR URL:
+
+                <strong>
+                    {{ screenshot_scan.url }}
+                </strong>
+
+            </p>
+
+            {% endif %}
+
+
+        </section>
+
+        {% endif %}
+
+
+        <!-- =================================================
+             SELLER ANALYSIS
+        ================================================== -->
+
+        {% if seller_scan %}
+
+        <section class="risk-card seller-result-card">
+
+            <h2>
+                🏪 Seller Analysis
+            </h2>
+
+
+            <div class="risk-score">
+
+                <span class="risk-number">
+                    {{ seller_scan.risk_score }}
+                </span>
+
+                <span class="risk-total">
+                    / 100
+                </span>
+
+            </div>
+
+
+            {% if seller_scan.risk_score >= 70 %}
+
+                <div class="risk-status danger">
+                    {{ seller_scan.result }}
+                </div>
+
+            {% elif seller_scan.risk_score >= 40 %}
+
+                <div class="risk-status warning">
+                    {{ seller_scan.result }}
+                </div>
+
+            {% else %}
+
+                <div class="risk-status safe">
+                    {{ seller_scan.result }}
+                </div>
+
+            {% endif %}
+
+
+            <!-- =================================================
+                 SELLER DETAILS
+            ================================================== -->
+
+            <div class="seller-details">
+
+                <p>
+
+                    <strong>
+                        Seller:
+                    </strong>
+
+                    {{ seller_scan.seller_name }}
+
+                </p>
+
+
+                {% if seller_scan.seller_url %}
+
+                <p>
+
+                    <strong>
+                        Website:
+                    </strong>
+
+                    {{ seller_scan.seller_url }}
+
+                </p>
+
+                {% endif %}
+
+
+                {% if seller_scan.seller_phone %}
+
+                <p>
+
+                    <strong>
+                        Phone:
+                    </strong>
+
+                    {{ seller_scan.seller_phone }}
+
+                </p>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- =================================================
+                 SELLER EXPLANATION
+            ================================================== -->
+
+            {% if seller_scan.reason %}
+
+            <div class="url-explanation">
+
+                <h4>
+                    🔍 Why this result?
+                </h4>
+
+                <p>
+                    {{ seller_scan.reason }}
+                </p>
+
+
+                <h4>
+                    🧠 Risk Explanation
+                </h4>
+
+                <p>
+                    {{ seller_scan.risk_explanation }}
+                </p>
+
+
+                <h4>
+                    🛡️ Safety Advice
+                </h4>
+
+                <p>
+                    {{ seller_scan.safety_advice }}
+                </p>
+
+            </div>
+
+            {% endif %}
+
+
+            <!-- =================================================
+                 SELLER RISK SIGNALS
+            ================================================== -->
+
+            {% if seller_scan.seller_signals %}
+
+            <div class="seller-signals">
+
+                <h4>
+                    Detected Risk Signals
+                </h4>
+
+
+                <ul>
+
+                    {% for signal in seller_scan.seller_signals %}
+
+                    <li>
+                        ⚠️ {{ signal }}
+                    </li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+
+            {% endif %}
+
+        </section>
+
+        {% endif %}
+
+
+        <!-- =================================================
+             OVERALL RISK SCORE
+        ================================================== -->
+
+        <section class="risk-card">
+
+            <h2>
+                Overall Risk Score
+            </h2>
+
+
+            <p class="community-description">
+
+                Highest risk detected across the completed
+                security checks in this session.
+
+            </p>
+
+
+            <div class="risk-score">
+
+                <span class="risk-number">
+                    {{ overall_risk_score }}
+                </span>
+
+                <span class="risk-total">
+                    / 100
+                </span>
+
+            </div>
+
+
+            {% if overall_risk_score >= 80 %}
+
+                <div class="risk-status danger">
+                    🚨 Critical Risk
+                </div>
+
+            {% elif overall_risk_score >= 60 %}
+
+                <div class="risk-status danger">
+                    ⚠️ High Risk
+                </div>
+
+            {% elif overall_risk_score >= 30 %}
+
+                <div class="risk-status warning">
+                    ⚠️ Moderate Risk
+                </div>
+
+            {% else %}
+
+                <div class="risk-status safe">
+                    ✅ Low Risk
+                </div>
+
+            {% endif %}
+
+
+            <!-- =================================================
+                 SCAN COMPONENTS
+            ================================================== -->
+
+            <div class="overall-components">
+
+                <h4>
+                    Scan Components
+                </h4>
+
+
+                {% if url_scan %}
+
+                <p>
+
+                    🔗 URL Risk:
+
+                    <strong>
+                        {{ url_scan.risk_score }}/100
+                    </strong>
+
+                </p>
+
+                {% endif %}
+
+
+                {% if screenshot_scan %}
+
+                <p>
+
+                    📷 Screenshot / QR Risk:
+
+                    <strong>
+                        {{ screenshot_scan.risk_score }}/100
+                    </strong>
+
+                </p>
+
+                {% endif %}
+
+
+                {% if seller_scan %}
+
+                <p>
+
+                    🏪 Seller Risk:
+
+                    <strong>
+                        {{ seller_scan.risk_score }}/100
+                    </strong>
+
+                </p>
+
+                {% endif %}
+
+
+                {% if not url_scan
+                      and not screenshot_scan
+                      and not seller_scan %}
+
+                <p class="scanned-url">
+
+                    No security checks completed yet.
+
+                </p>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- =================================================
+                 RESET
+            ================================================== -->
+
+            <form
+                method="POST"
+                action="{{ url_for('reset_risk') }}"
+                class="reset-risk-form"
+            >
+
+                <button
+                    type="submit"
+                    class="reset-risk-btn"
+                >
+                    🔄 Reset All Scan Results
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- =================================================
+             COMMUNITY REPORT FORM
+        ================================================== -->
+
+        <section class="community-section">
+
+            <h2>
+                📝 Share Your Scam Experience
+            </h2>
+
+
+            <p class="community-description">
+
+                Have you experienced a scam?
+                Share your experience to help other users.
+
+            </p>
+
+
+            <form
+                method="POST"
+                action="{{ url_for('report_scam') }}"
+                class="community-form"
+            >
+
+                <label for="report_type">
+                    Scam Type
+                </label>
+
+
+                <select
+                    id="report_type"
+                    name="report_type"
+                    required
+                >
+
+                    <option value="">
+                        Select scam type
+                    </option>
+
+
+                    <option value="URL">
+                        🔗 Suspicious URL
+                    </option>
+
+
+                    <option value="Message">
+                        💬 Scam Message
+                    </option>
+
+
+                    <option value="Seller">
+                        🏪 Fake Seller
+                    </option>
+
+
+                    <option value="Payment">
+                        💳 Payment Scam
+                    </option>
+
+
+                    <option value="Other">
+                        ⚠️ Other
+                    </option>
+
+                </select>
+
+
+                <label for="title">
+                    Experience Title
+                </label>
+
+
+                <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    placeholder="Example: Fake Instagram Seller"
+                    maxlength="200"
+                    required
+                >
+
+
+                <label for="description">
+                    Your Experience
+                </label>
+
+
+                <textarea
+                    id="description"
+                    name="description"
+                    placeholder="Describe what happened..."
+                    maxlength="2000"
+                    required
+                ></textarea>
+
+
+                <label for="related_url">
+                    Related URL (Optional)
+                </label>
+
+
+                <input
+                    type="text"
+                    id="related_url"
+                    name="related_url"
+                    placeholder="https://example.com"
+                >
+
+
+                <label for="severity">
+                    Severity
+                </label>
+
+
+                <select
+                    id="severity"
+                    name="severity"
+                    required
+                >
+
+                    <option value="Low">
+                        Low
+                    </option>
+
+
+                    <option
+                        value="Medium"
+                        selected
+                    >
+                        Medium
+                    </option>
+
+
+                    <option value="High">
+                        High
+                    </option>
+
+                </select>
+
+
+                <button
+                    type="submit"
+                    class="analyze-btn community-submit-btn"
+                >
+
+                    📢 Submit Experience
+
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- =================================================
+             COMMUNITY REPORTS
+        ================================================== -->
+
+        <section class="community-section">
+
+            <h2>
+                👥 Community Reports
+            </h2>
+
+
+            <p class="community-description">
+
+                Real experiences shared by ScamShieldAI users.
+
+            </p>
+
+
+            {% if reports %}
+
+            <div class="community-report-list">
+
+
+                {% for report in reports %}
+
+                <div class="community-report-card">
+
+
+                    <!-- =================================================
+                         REPORT HEADER
+                    ================================================= -->
+
+                    <div class="report-header">
+
+                        <div>
+
+                            <h3>
+                                {{ report.title }}
+                            </h3>
+
+
+                            <span class="report-type">
+                                {{ report.report_type }}
+                            </span>
+
+                        </div>
+
+
+                        {% if report.severity == "High" %}
+
+                        <span class="severity-badge severity-high">
+                            High Risk
+                        </span>
+
+                        {% elif report.severity == "Medium" %}
+
+                        <span class="severity-badge severity-medium">
+                            Medium
+                        </span>
+
+                        {% else %}
+
+                        <span class="severity-badge severity-low">
+                            Low
+                        </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- =================================================
+                         REPORT DESCRIPTION
+                    ================================================== -->
+
+                    <p class="report-description">
+
+                        {{ report.description }}
+
+                    </p>
+
+
+                    <!-- =================================================
+                         RELATED URL
+                    ================================================== -->
+
+                    {% if report.related_url %}
+
+                    <p class="report-url">
+
+                        🔗
+
+                        <strong>
+                            Related URL:
+                        </strong>
+
+                        {{ report.related_url }}
+
+                    </p>
+
+                    {% endif %}
+
+
+                    <!-- =================================================
+                         REPORT FOOTER
+                    ================================================== -->
+
+                    <div class="report-footer">
+
+                        <span>
+
+                            👤 Reported by
+
+                            <strong>
+                                {{ report.user.username }}
+                            </strong>
+
+                        </span>
+
+
+                        <span>
+
+                            📅
+
+                            {{ report.created_at.strftime("%d %b %Y") }}
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         DELETE REPORT
+                    ================================================== -->
+
+                    <form
+                        method="POST"
+                        action="{{ url_for('delete_report', report_id=report.id) }}"
+                        class="delete-report-form"
+                        onsubmit="return confirm('Are you sure you want to delete this report?');"
+                    >
+
+                        <button
+                            type="submit"
+                            class="delete-report-btn"
+                        >
+
+                            🗑️ Delete
+
+                        </button>
+
+                    </form>
+
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            {% else %}
+
+            <div class="report">
+
+                <div class="report-info">
+
+                    <h4>
+                        No reports yet
+                    </h4>
+
+                    <p>
+                        Be the first to share your scam experience.
+                    </p>
+
+                </div>
+
+            </div>
+
+            {% endif %}
+
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="footer">
+
+        © 2026 ScamShieldAI —
+        AI-Powered Scam Detection
+
+    </footer>
+
+
+</div>
+
+
+</body>
+
+</html>

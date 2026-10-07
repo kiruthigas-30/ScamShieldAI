@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ScamShieldAI - Login</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+<div class="auth-page">
+
+    <div class="auth-card">
+
+        <!-- LOGO -->
+
+        <div class="auth-logo">
+            🛡️
+        </div>
+
+        <h1>
+            ScamShield<span>AI</span>
+        </h1>
+
+        <p class="auth-subtitle">
+            AI-Powered Scam Detection
+        </p>
+
+
+        <!-- LOGIN TITLE -->
+
+        <h2>
+            Welcome Back
+        </h2>
+
+        <p class="auth-description">
+            Login to access your scam detection dashboard.
+        </p>
+
+
+        <!-- LOGIN FORM -->
+
+        <form
+            method="POST"
+            class="auth-form"
+        >
+
+            <label for="username">
+                Username
+            </label>
+
+            <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Enter your username"
+                autocomplete="username"
+                required
+            >
+
+
+            <label for="password">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required
+            >
+
+
+            <button
+                type="submit"
+                class="auth-btn"
+            >
+                🔐 Login
+            </button>
+
+        </form>
+
+
+        <!-- REGISTER LINK -->
+
+        <p class="auth-footer-text">
+
+            Don't have an account?
+
+            <a href="{{ url_for('register') }}">
+                Create an account
+            </a>
+
+        </p>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

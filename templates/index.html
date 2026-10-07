@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="ScamShieldAI - AI-powered scam detection for suspicious URLs, messages, screenshots, QR codes and online sellers."
+    >
+
+    <title>
+        ScamShieldAI - AI-Powered Scam Detection
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+<div class="landing-page">
+
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <nav class="landing-navbar">
+
+        <div class="landing-logo">
+
+            <div class="landing-logo-icon">
+                🛡️
+            </div>
+
+            <div class="landing-logo-text">
+                ScamShield<span>AI</span>
+            </div>
+
+        </div>
+
+
+        <div class="landing-nav-links">
+
+            <a href="#features">
+                Features
+            </a>
+
+            <a href="#how-it-works">
+                How It Works
+            </a>
+
+            <a href="#about">
+                About
+            </a>
+
+            <a
+                href="{{ url_for('login') }}"
+                class="nav-login-btn"
+            >
+                Login
+            </a>
+
+            <a
+                href="{{ url_for('register') }}"
+                class="nav-register-btn"
+            >
+                Create Account
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =====================================================
+         HERO SECTION
+    ====================================================== -->
+
+    <header class="hero-section">
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                🛡️ AI-Powered Online Safety
+            </div>
+
+
+            <h1>
+
+                Protect Yourself From
+                <span>Online Scams</span>
+
+            </h1>
+
+
+            <p class="hero-description">
+
+                ScamShieldAI helps identify suspicious
+                websites, scam messages, QR codes, screenshots
+                and online sellers using machine learning,
+                natural language processing and intelligent
+                risk analysis.
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <a
+                    href="{{ url_for('login') }}"
+                    class="hero-primary-btn"
+                >
+                    🔐 Login to ScamShieldAI
+                </a>
+
+
+                <a
+                    href="{{ url_for('register') }}"
+                    class="hero-secondary-btn"
+                >
+                    🚀 Create Free Account
+                </a>
+
+            </div>
+
+
+            <p class="hero-note">
+                Simple • Fast • AI-Assisted • Risk-Aware
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             HERO SECURITY CARD
+        ================================================== -->
+
+        <div class="hero-visual">
+
+            <div class="security-dashboard-card">
+
+                <div class="security-card-header">
+
+                    <div class="security-card-title">
+                        🛡️ ScamShieldAI
+                    </div>
+
+                    <span class="security-live">
+                        ● Ready
+                    </span>
+
+                </div>
+
+
+                <div class="security-score-section">
+
+                    <span class="security-score-label">
+                        Example Risk Assessment
+                    </span>
+
+                    <div class="security-score">
+                        18
+                        <span>/100</span>
+                    </div>
+
+                    <div class="security-status">
+                        ✅ Low Risk
+                    </div>
+
+                </div>
+
+
+                <div class="security-check-list">
+
+                    <div class="security-check-item">
+
+                        <span>
+                            🔗
+                        </span>
+
+                        <div>
+                            <strong>
+                                URL Analysis
+                            </strong>
+
+                            <small>
+                                ML-based phishing detection
+                            </small>
+                        </div>
+
+                        <b>
+                            ✓
+                        </b>
+
+                    </div>
+
+
+                    <div class="security-check-item">
+
+                        <span>
+                            📷
+                        </span>
+
+                        <div>
+                            <strong>
+                                Screenshot Scan
+                            </strong>
+
+                            <small>
+                                OCR + scam message analysis
+                            </small>
+                        </div>
+
+                        <b>
+                            ✓
+                        </b>
+
+                    </div>
+
+
+                    <div class="security-check-item">
+
+                        <span>
+                            🏪
+                        </span>
+
+                        <div>
+                            <strong>
+                                Seller Analysis
+                            </strong>
+
+                            <small>
+                                Suspicious seller signals
+                            </small>
+                        </div>
+
+                        <b>
+                            ✓
+                        </b>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         TRUST STRIP
+    ====================================================== -->
+
+    <section class="trust-strip">
+
+        <div class="trust-item">
+
+            <strong>
+                ML
+            </strong>
+
+            <span>
+                Phishing Detection
+            </span>
+
+        </div>
+
+
+        <div class="trust-divider"></div>
+
+
+        <div class="trust-item">
+
+            <strong>
+                NLP
+            </strong>
+
+            <span>
+                Scam Message Analysis
+            </span>
+
+        </div>
+
+
+        <div class="trust-divider"></div>
+
+
+        <div class="trust-item">
+
+            <strong>
+                OCR
+            </strong>
+
+            <span>
+                Screenshot Text Extraction
+            </span>
+
+        </div>
+
+
+        <div class="trust-divider"></div>
+
+
+        <div class="trust-item">
+
+            <strong>
+                QR
+            </strong>
+
+            <span>
+                QR Code Detection
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         FEATURES
+    ====================================================== -->
+
+    <section
+        id="features"
+        class="landing-section"
+    >
+
+        <div class="section-heading">
+
+            <span class="section-tag">
+                SECURITY TOOLS
+            </span>
+
+            <h2>
+                One Platform for Multiple Scam Threats
+            </h2>
+
+            <p>
+                Analyze suspicious digital content using
+                multiple security tools in one place.
+            </p>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+
+            <!-- URL -->
+
+            <article class="feature-card">
+
+                <div class="feature-icon feature-icon-blue">
+                    🔗
+                </div>
+
+                <h3>
+                    URL Scanner
+                </h3>
+
+                <p>
+                    Analyze suspicious website URLs using
+                    machine-learning based phishing detection.
+                </p>
+
+                <div class="feature-list">
+
+                    <span>
+                        ✓ URL feature extraction
+                    </span>
+
+                    <span>
+                        ✓ Phishing probability
+                    </span>
+
+                    <span>
+                        ✓ Risk score
+                    </span>
+
+                    <span>
+                        ✓ Reason and safety advice
+                    </span>
+
+                </div>
+
+            </article>
+
+
+            <!-- SCREENSHOT -->
+
+            <article class="feature-card">
+
+                <div class="feature-icon feature-icon-purple">
+                    📷
+                </div>
+
+                <h3>
+                    Screenshot Scanner
+                </h3>
+
+                <p>
+                    Upload screenshots of suspicious
+                    messages and let OCR extract the text
+                    for scam detection.
+                </p>
+
+                <div class="feature-list">
+
+                    <span>
+                        ✓ OCR text extraction
+                    </span>
+
+                    <span>
+                        ✓ Scam message analysis
+                    </span>
+
+                    <span>
+                        ✓ Risk indicators
+                    </span>
+
+                    <span>
+                        ✓ Safety recommendations
+                    </span>
+
+                </div>
+
+            </article>
+
+
+            <!-- QR -->
+
+            <article class="feature-card">
+
+                <div class="feature-icon feature-icon-green">
+                    🔳
+                </div>
+
+                <h3>
+                    QR Code Scanner
+                </h3>
+
+                <p>
+                    Detect QR codes inside screenshots and
+                    analyze their destination or embedded text.
+                </p>
+
+                <div class="feature-list">
+
+                    <span>
+                        ✓ QR detection
+                    </span>
+
+                    <span>
+                        ✓ URL extraction
+                    </span>
+
+                    <span>
+                        ✓ Text analysis
+                    </span>
+
+                    <span>
+                        ✓ Risk assessment
+                    </span>
+
+                </div>
+
+            </article>
+
+
+            <!-- SELLER -->
+
+            <article class="feature-card">
+
+                <div class="feature-icon feature-icon-orange">
+                    🏪
+                </div>
+
+                <h3>
+                    Seller Checker
+                </h3>
+
+                <p>
+                    Analyze online sellers using website,
+                    name and contact information.
+                </p>
+
+                <div class="feature-list">
+
+                    <span>
+                        ✓ Domain analysis
+                    </span>
+
+                    <span>
+                        ✓ Seller name signals
+                    </span>
+
+                    <span>
+                        ✓ Phone validation
+                    </span>
+
+                    <span>
+                        ✓ Risk explanation
+                    </span>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         HOW IT WORKS
+    ====================================================== -->
+
+    <section
+        id="how-it-works"
+        class="how-section"
+    >
+
+        <div class="section-heading">
+
+            <span class="section-tag">
+                HOW IT WORKS
+            </span>
+
+            <h2>
+                From Suspicious Content to Clear Risk Information
+            </h2>
+
+            <p>
+                ScamShieldAI turns potentially confusing
+                scam indicators into an easy-to-understand
+                risk assessment.
+            </p>
+
+        </div>
+
+
+        <div class="process-grid">
+
+
+            <div class="process-card">
+
+                <div class="process-number">
+                    01
+                </div>
+
+                <div class="process-icon">
+                    📥
+                </div>
+
+                <h3>
+                    Submit
+                </h3>
+
+                <p>
+                    Enter a URL, upload a screenshot,
+                    scan a QR code or provide seller details.
+                </p>
+
+            </div>
+
+
+            <div class="process-arrow">
+                →
+            </div>
+
+
+            <div class="process-card">
+
+                <div class="process-number">
+                    02
+                </div>
+
+                <div class="process-icon">
+                    🧠
+                </div>
+
+                <h3>
+                    Analyze
+                </h3>
+
+                <p>
+                    Machine learning, NLP, OCR and rule-based
+                    indicators analyze the submitted information.
+                </p>
+
+            </div>
+
+
+            <div class="process-arrow">
+                →
+            </div>
+
+
+            <div class="process-card">
+
+                <div class="process-number">
+                    03
+                </div>
+
+                <div class="process-icon">
+                    📊
+                </div>
+
+                <h3>
+                    Risk Score
+                </h3>
+
+                <p>
+                    The system produces a risk score that
+                    summarizes the detected warning signals.
+                </p>
+
+            </div>
+
+
+            <div class="process-arrow">
+                →
+            </div>
+
+
+            <div class="process-card">
+
+                <div class="process-number">
+                    04
+                </div>
+
+                <div class="process-icon">
+                    🛡️
+                </div>
+
+                <h3>
+                    Stay Safe
+                </h3>
+
+                <p>
+                    Understand why the result was generated
+                    and follow the recommended safety advice.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         AI TECHNOLOGY
+    ====================================================== -->
+
+    <section
+        id="about"
+        class="technology-section"
+    >
+
+        <div class="technology-content">
+
+            <div>
+
+                <span class="section-tag">
+                    TECHNOLOGY
+                </span>
+
+                <h2>
+                    Intelligent Scam Detection,
+                    Made Understandable
+                </h2>
+
+                <p>
+                    ScamShieldAI combines multiple analysis
+                    techniques so users can examine different
+                    types of suspicious digital content from
+                    a single dashboard.
+                </p>
+
+                <p>
+                    Instead of only showing a prediction,
+                    the platform explains the detected risk
+                    signals and provides practical safety advice.
+                </p>
+
+                <a
+                    href="{{ url_for('register') }}"
+                    class="technology-btn"
+                >
+                    🚀 Get Started
+                </a>
+
+            </div>
+
+
+            <div class="technology-panel">
+
+
+                <div class="technology-item">
+
+                    <div class="technology-item-icon">
+                        🤖
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Machine Learning
+                        </h3>
+
+                        <p>
+                            Phishing URL classification
+                            and probability estimation.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="technology-item">
+
+                    <div class="technology-item-icon">
+                        💬
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Natural Language Processing
+                        </h3>
+
+                        <p>
+                            Scam and spam message analysis
+                            using text classification.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="technology-item">
+
+                    <div class="technology-item-icon">
+                        👁️
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Optical Character Recognition
+                        </h3>
+
+                        <p>
+                            Extract text from uploaded screenshots
+                            for further analysis.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="technology-item">
+
+                    <div class="technology-item-icon">
+                        🔳
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            QR Detection
+                        </h3>
+
+                        <p>
+                            Decode QR content and analyze
+                            links or embedded text.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         COMMUNITY
+    ====================================================== -->
+
+    <section class="community-preview">
+
+        <div class="community-preview-content">
+
+            <div class="community-preview-icon">
+                👥
+            </div>
+
+            <div>
+
+                <span class="section-tag">
+                    COMMUNITY SAFETY
+                </span>
+
+                <h2>
+                    Learn From Real Scam Experiences
+                </h2>
+
+                <p>
+                    ScamShieldAI allows users to share scam
+                    experiences so others can recognize
+                    suspicious patterns more easily.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <a
+            href="{{ url_for('register') }}"
+            class="community-preview-btn"
+        >
+            Join ScamShieldAI
+        </a>
+
+    </section>
+
+
+    <!-- =====================================================
+         SAFETY NOTICE
+    ====================================================== -->
+
+    <section class="safety-notice">
+
+        <div class="safety-notice-icon">
+            ⚠️
+        </div>
+
+
+        <div>
+
+            <h3>
+                Important Safety Notice
+            </h3>
+
+            <p>
+                ScamShieldAI provides an automated
+                risk assessment based on available
+                information. A low-risk result does not
+                guarantee that a website, message or seller
+                is completely safe. Always verify unexpected
+                requests before sharing sensitive information
+                or making payments.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         FINAL CTA
+    ====================================================== -->
+
+    <section class="final-cta">
+
+        <div>
+
+            <span class="section-tag">
+                GET STARTED
+            </span>
+
+            <h2>
+                Stay One Step Ahead of Online Scams
+            </h2>
+
+            <p>
+                Create your ScamShieldAI account and
+                access the complete security dashboard.
+            </p>
+
+        </div>
+
+
+        <div class="final-cta-buttons">
+
+            <a
+                href="{{ url_for('login') }}"
+                class="hero-secondary-btn"
+            >
+                🔐 Login
+            </a>
+
+            <a
+                href="{{ url_for('register') }}"
+                class="hero-primary-btn"
+            >
+                🚀 Create Account
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="landing-footer">
+
+        <div class="landing-footer-brand">
+
+            <div class="landing-logo">
+
+                <div class="landing-logo-icon">
+                    🛡️
+                </div>
+
+                <div class="landing-logo-text">
+                    ScamShield<span>AI</span>
+                </div>
+
+            </div>
+
+            <p>
+                AI-powered tools for safer digital experiences.
+            </p>
+
+        </div>
+
+
+        <div class="landing-footer-links">
+
+            <a href="#features">
+                Features
+            </a>
+
+            <a href="#how-it-works">
+                How It Works
+            </a>
+
+            <a href="{{ url_for('login') }}">
+                Login
+            </a>
+
+            <a href="{{ url_for('register') }}">
+                Register
+            </a>
+
+        </div>
+
+
+        <div class="landing-footer-bottom">
+
+            © 2026 ScamShieldAI —
+            AI-Powered Scam Detection
+
+        </div>
+
+    </footer>
+
+
+</div>
+
+
+</body>
+
+</html>
